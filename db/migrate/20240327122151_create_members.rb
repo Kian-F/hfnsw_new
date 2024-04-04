@@ -3,7 +3,8 @@ class CreateMembers < ActiveRecord::Migration[7.0]
     create_table :members do |t|
       t.string :title
       t.string :first_name
-      t.binary :last_name
+      t.string :last_name
+      t.string :mobile_number
       t.timestamps
     end
   end
