@@ -55,6 +55,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: hemophilia_nsw_production
   username: hemophilia_nsw
   password: <%= ENV["HEMOPHILIA_NSW_DATABASE_PASSWORD"] %>
