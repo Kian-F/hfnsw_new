@@ -1,7 +1,7 @@
 databases:
-  - name: postgres
-    databaseName: postgres
-    user: postgres
+  - name: hfnswServerNew
+    databaseName: hfnswServerNewDB
+    user: kian
     plan: free
 
 services:
