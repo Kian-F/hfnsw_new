@@ -1,6 +1,9 @@
 database:
   - name: postgres
+    databaseName: mysite
+    user: mysite
     ipAllowList: []
+    plan: free
 
 services:
   - type: web
