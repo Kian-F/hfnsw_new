@@ -1,9 +1,3 @@
-databases:
-  - name: hfnswServerNew
-    databaseName: hfnswServerNewDB
-    user: kian
-    plan: free
-
 services:
   - type: web
     name: hfnswServerNew
