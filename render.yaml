@@ -1,12 +1,12 @@
 databases:
-  - name: hemophilia_nsw_development
-    databaseName: hemophilia_nsw_development
+  - name: postgres
+    databaseName: postgres
     user: postgres
     plan: free
 
 services:
   - type: web
-    name: hfnsw_server_new
+    name: hfnswServerNew
     runtime: ruby
     plan: free
     buildCommand: './bin/render-build.sh'
@@ -14,7 +14,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: hemophilia_nsw_development
+          name: postgres
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
