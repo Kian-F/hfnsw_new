@@ -20,7 +20,7 @@ class Identity::PasswordResetsController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to sign_in_path, notice: "Your password was reset successfully. Please sign in"
+      revoke_tokens; redirect_to(sign_in_path, notice: "Your password was reset successfully. Please sign in")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Identity::PasswordResetsController < ApplicationController
 
   private
     def set_user
-      @user = User.find_by_token_for!(:password_reset, params[:sid])
+      token = PasswordResetToken.find_signed!(params[:sid]); @user = token.user
     rescue StandardError
       redirect_to new_identity_password_reset_path, alert: "That password reset link is invalid"
     end
@@ -39,5 +39,9 @@ class Identity::PasswordResetsController < ApplicationController
 
     def send_password_reset_email
       UserMailer.with(user: @user).password_reset.deliver_later
+    end
+
+    def revoke_tokens
+      @user.password_reset_tokens.delete_all
     end
 end

@@ -67,8 +67,12 @@ group :development do
   # gem "spring"
 end
 
-gem "authentication-zero", "~> 3.0"
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# gem "authentication-zero", "~> 3.0"
 
+gem 'byebug', '~> 11.1', '>= 11.1.3'
+
+gem "pundit", "~> 2.3"
+gem "authentication-zero", "~> 2"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.7"
 

@@ -3,7 +3,7 @@ require "application_system_test_case"
 class Identity::PasswordResetsTest < ApplicationSystemTestCase
   setup do
     @user = users(:lazaro_nixon)
-    @sid = @user.generate_token_for(:password_reset)
+    @sid = @user.password_reset_tokens.create.signed_id(expires_in: 20.minutes)
   end
 
   test "sending a password reset email" do

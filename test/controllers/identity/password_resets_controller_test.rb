@@ -11,14 +11,14 @@ class Identity::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    sid = @user.generate_token_for(:password_reset)
+    sid = @user.password_reset_tokens.create.signed_id(expires_in: 20.minutes)
 
     get edit_identity_password_reset_url(sid: sid)
     assert_response :success
   end
 
   test "should send a password reset email" do
-    assert_enqueued_email_with UserMailer, :password_reset, params: { user: @user } do
+    assert_enqueued_email_with UserMailer, :password_reset, args: { user: @user } do
       post identity_password_reset_url, params: { email: @user.email }
     end
 
@@ -46,19 +46,16 @@ class Identity::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update password" do
-    sid = @user.generate_token_for(:password_reset)
+    sid = @user.password_reset_tokens.create.signed_id(expires_in: 20.minutes)
 
     patch identity_password_reset_url, params: { sid: sid, password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*" }
     assert_redirected_to sign_in_url
   end
 
   test "should not update password with expired token" do
-    sid = @user.generate_token_for(:password_reset)
+    sid_exp = @user.password_reset_tokens.create.signed_id(expires_in: 0.minutes)
 
-    travel 30.minutes
-
-    patch identity_password_reset_url, params: { sid: sid, password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*" }
-
+    patch identity_password_reset_url, params: { sid: sid_exp, password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*" }
     assert_redirected_to new_identity_password_reset_url
     assert_equal "That password reset link is invalid", flash[:alert]
   end
