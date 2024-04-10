@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_10_105502) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_10_111243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_10_105502) do
     t.index ["user_id"], name: "index_password_reset_tokens_on_user_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "title"
+    t.string "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "user_agent"
@@ -63,12 +70,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_10_105502) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "organization_id", null: false
+    t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "organizations"
+  add_foreign_key "users", "roles"
 end
