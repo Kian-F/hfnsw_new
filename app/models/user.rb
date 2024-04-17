@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :password_reset_tokens, dependent: :destroy
   has_many :sessions, dependent: :destroy
   belongs_to :organization
+  belongs_to :role
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
@@ -19,5 +20,9 @@ class User < ApplicationRecord
 
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
+  end
+
+  def admin?
+    self.role&.key == 'admin'
   end
 end

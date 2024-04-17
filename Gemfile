@@ -75,4 +75,4 @@ gem "pundit", "~> 2.3"
 
 gem "authentication-zero", "~> 2"
 
-
+gem "tailwindcss-rails", "~> 2.4"
