@@ -1,23 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mx-auto px-4 py-8">
+  <div class="text-green-500 mb-4">
+    <%= notice %>
+  </div>
 
-<p>Signed as <%= Current.user.email %></p>
+  <p class="text-lg mb-2">Signed as <%= Current.user.email %></p>
 
-<h2>Login and verification</h2>
+  <h2 class="text-3xl font-bold mt-8 mb-4">Login and verification</h2>
 
-<div>
-  <%= link_to "Change password", edit_password_path %>
+  <div class="mb-2">
+    <%= link_to "Change password", edit_password_path, class: "text-blue-500 hover:text-blue-700" %>
+  </div>
+
+  <div class="mb-2">
+    <%= link_to "Change email address", edit_identity_email_path, class: "text-blue-500 hover:text-blue-700" %>
+  </div>
+
+  <h2 class="text-3xl font-bold mt-8 mb-4">Access history</h2>
+
+  <div class="mb-2">
+    <%= link_to "Devices & Sessions", sessions_path, class: "text-blue-500 hover:text-blue-700" %>
+  </div>
+
+  <br>
+
+  <%= button_to "Log out", Current.session, method: :delete, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
 </div>
-
-<div>
-  <%= link_to "Change email address", edit_identity_email_path %>
-</div>
-
-<h2>Access history</h2>
-
-<div>
-  <%= link_to "Devices & Sessions", sessions_path %>
-</div>
-
-<br>
-
-<%= button_to "Log out", Current.session, method: :delete %>
