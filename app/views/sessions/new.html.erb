@@ -6,6 +6,7 @@
   <div class="flex items-center justify-center min-h-screen px-6 py-12 lg:px-8 bg-gray-50">
     <div class="w-full max-w-md">
       <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+      <h1 class="mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-red-900">Welcome To HFNSW Portal</h1>
       <h2 class="mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">Sign in</h2>
 
       <%= form_with(url: sign_in_path, class: "mt-8 space-y-6") do |form| %>
@@ -29,7 +30,7 @@
         </div>
       <% end %>
 
-      <p class="mt-6 text-center text-sm text-gray-600">
+      <p class="mt-6 text-center text-md text-gray-600">
         New user? <a href="sign_up" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up here</a>
       </p>
     </div>
